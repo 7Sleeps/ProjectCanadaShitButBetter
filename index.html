@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CANDA - Full-Stack Web Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#home" class="logo">CANDA</a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation" aria-expanded="false">
+                <i data-feather="menu"></i>
+            </button>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation">
+            <i data-feather="x"></i>
+        </button>
+        <ul>
+            <li><a href="#home" class="mobile-nav-link">Home</a></li>
+            <li><a href="#about" class="mobile-nav-link">About</a></li>
+            <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
+            <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
+            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>CANDA</h1>
+                <p class="subtitle">Full-Stack Web Developer</p>
+                <div class="social-links">
+                    <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub"><i data-feather="github"></i></a>
+                    <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
+                    <a href="mailto:your.email@example.com" aria-label="Email"><i data-feather="mail"></i></a>
+                </div>
+                <a href="assets/canda-cv.pdf" download class="btn btn-primary btn-hero">
+                    <i data-feather="download"></i> Download CV
+                </a>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2><span class="accent">About</span> Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="images/profile.jpg" alt="Canda - Profile Picture">
+                </div>
+                <div class="about-text">
+                    <p>Hi, I'm Canda, a passionate Full-Stack Web Developer based in [Your Location - e.g., Fort Worth, Texas]. I specialize in building modern, responsive, and user-friendly web applications from front to back.</p>
+                    <p>With experience in various technologies across the stack, I enjoy tackling challenges and turning complex problems into elegant solutions. I'm constantly learning and exploring new tools to improve my craft.</p>
+                    <p>When I'm not coding, I enjoy [Your Hobby 1], [Your Hobby 2], and exploring the latest tech trends.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>My <span class="accent">Skills</span></h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i data-feather="monitor"></i> Frontend</h3>
+                    <ul>
+                        <li><i data-feather="code"></i> HTML5</li>
+                        <li><i data-feather="pen-tool"></i> CSS3 / SASS</li>
+                        <li><i data-feather="bold"></i> JavaScript (ES6+)</li>
+                        <li><i data-feather="figma"></i> React / Vue.js / Angular</li>
+                        <li><i data-feather="layout"></i> Responsive Design</li>
+                        <li><i data-feather="fast-forward"></i> Performance Optimization</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i data-feather="server"></i> Backend</h3>
+                    <ul>
+                        <li><i data-feather="box"></i> Node.js</li>
+                        <li><i data-feather="compass"></i> Express.js</li>
+                        <li><i data-feather="database"></i> MongoDB / PostgreSQL / MySQL</li>
+                        <li><i data-feather="terminal"></i> RESTful APIs / GraphQL</li>
+                        <li><i data-feather="key"></i> Authentication / Authorization</li>
+                        <li><i data-feather="shield"></i> Security Best Practices</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i data-feather="tool"></i> Others</h3>
+                    <ul>
+                        <li><i data-feather="git-merge"></i> Git & GitHub / GitLab</li>
+                        <li><i data-feather="package"></i> Docker</li>
+                        <li><i data-feather="cloud"></i> Cloud Platforms (AWS/GCP/Azure - Basic)</li>
+                        <li><i data-feather="check-circle"></i> Testing (Jest, Cypress)</li>
+                        <li><i data-feather="command"></i> Command Line Interface (CLI)</li>
+                        <li><i data-feather="refresh-cw"></i> Agile Methodologies</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>My <span class="accent">Projects</span></h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/project1-placeholder.jpg" alt="Project 1 Title">
+                    </div>
+                    <div class="project-content">
+                         <h3>Project Title 1</h3>
+                        <p>Brief description of the project highlighting key features, purpose, and challenges overcome.</p>
+                        <div class="tech-stack">
+                            <span>React</span><span>Node.js</span><span>MongoDB</span><span>CSS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank" class="btn btn-secondary">
+                                <i data-feather="external-link"></i> View Live
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-outline">
+                                <i data-feather="github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/project2-placeholder.jpg" alt="Project 2 Title">
+                    </div>
+                    <div class="project-content">
+                        <h3>Project Title 2</h3>
+                        <p>Another description for a different project. Focus on what makes this one unique.</p>
+                        <div class="tech-stack">
+                            <span>Vue.js</span><span>Express</span><span>PostgreSQL</span><span>Sass</span>
+                        </div>
+                        <div class="project-links">
+                             <a href="#" target="_blank" class="btn btn-secondary">
+                                <i data-feather="external-link"></i> View Live
+                            </a>
+                            <a href="#" target="_blank" class="btn btn-outline">
+                                <i data-feather="github"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+        </section>
+
+        <section id="contact">
+            <h2>Get In <span class="accent">Touch</span></h2>
+            <form action="https://example.com/your-form-handler" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Your Email Address">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required placeholder="Your message..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i data-feather="send"></i> Send Message
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CANDA. All rights reserved.</p>
+        </footer>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="script.js"></script>
+</body>
+</html>
