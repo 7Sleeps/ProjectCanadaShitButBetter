@@ -3,188 +3,508 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CANDA - Full-Stack Web Developer</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Phrogsploit UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #404040; /* Page background - for contrast with the app window */
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #D4D4D4;
+            overflow: hidden; /* Prevent scrollbars from body if app is too large */
+        }
+
+        .app-window {
+            width: 950px; /* Adjusted width */
+            height: 650px; /* Adjusted height */
+            background-color: #1E1E1E;
+            border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Crucial for keeping contents within rounded corners */
+            border: 1px solid #333333; /* Subtle border for the app window */
+        }
+
+        /* Title Bar */
+        .title-bar {
+            background-color: #2D2D2D;
+            padding: 6px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1A1A1A;
+            user-select: none; /* Prevent text selection */
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        .title-bar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .hamburger-menu {
+            font-size: 22px;
+            color: #B0B0B0;
+            margin-right: 15px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .hamburger-menu:hover {
+            color: #FFFFFF;
+        }
+
+        .app-title {
+            color: #FFFFFF;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .title-bar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .port-indicator {
+            background-color: #1E1E1E;
+            color: #00C853; /* Greenish for port */
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-right: 15px;
+            font-weight: 500;
+        }
+
+        .window-controls button {
+            background: none;
+            border: none;
+            color: #B0B0B0;
+            font-size: 18px; /* Adjusted for better visual balance */
+            padding: 6px 12px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .window-controls button:hover {
+            background-color: #444444;
+        }
+        .window-controls button.close-btn:hover {
+            background-color: #E81123;
+            color: #FFFFFF;
+        }
+
+        /* Tab Bar */
+        .tab-bar {
+            background-color: #2D2D2D;
+            padding: 0 5px;
+            display: flex;
+            align-items: flex-end; /* Align tabs to the bottom of the container */
+            flex-shrink: 0;
+            border-bottom: 1px solid #1A1A1A; /* Separator for editor area */
+            min-height: 40px; /* Ensure tab bar has height */
+        }
+
+        .tab {
+            background-color: #3C3C3C;
+            color: #D4D4D4;
+            padding: 10px 12px; /* Increased padding */
+            margin-right: 1px; /* Separator lines */
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border: 1px solid #3C3C3C; /* Default border */
+            border-bottom: none; /* Remove bottom border for default tabs */
+            position: relative; /* For absolute positioning of close button */
+            max-width: 200px; /* Prevent tabs from becoming too wide */
+        }
+        .tab:hover {
+            background-color: #4A4A4A;
+        }
+        .tab.active {
+            background-color: #1E1E1E; /* Match editor background */
+            color: #FFFFFF;
+            border-top: 2px solid #007ACC; /* Active indicator like VS Code */
+            border-left: 1px solid #1A1A1A;
+            border-right: 1px solid #1A1A1A;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-icon {
+            margin-right: 8px;
+            font-size: 14px; /* Placeholder for actual icon font or SVG */
+            color: #B0B0B0;
+        }
+        .tab.active .tab-icon {
+            color: #007ACC;
+        }
+
+        .tab-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-grow: 1;
+        }
+        .tab-name:focus {
+            outline: 1px dashed #007ACC;
+            background-color: #333;
+            color: #FFF;
+            padding: 2px;
+            cursor: text;
+        }
+
+
+        .tab-close {
+            margin-left: 10px;
+            font-size: 16px;
+            color: #B0B0B0;
+            padding: 2px;
+            border-radius: 3px;
+            line-height: 1;
+        }
+        .tab-close:hover {
+            background-color: #666666;
+            color: #FFFFFF;
+        }
+        .tab.active .tab-close:hover {
+            background-color: #E81123;
+            color: #FFFFFF;
+        }
+
+        .add-tab-button {
+            background: none;
+            border: none;
+            color: #B0B0B0;
+            font-size: 22px;
+            padding: 5px 10px;
+            cursor: pointer;
+            align-self: center; /* Align with center of tabs */
+            margin-left: 5px;
+            line-height: 1;
+        }
+        .add-tab-button:hover {
+            color: #FFFFFF;
+            background-color: #4A4A4A;
+            border-radius: 4px;
+        }
+
+        /* Editor Area */
+        .editor-area-container {
+            flex-grow: 1;
+            display: flex;
+            background-color: #1E1E1E; /* Editor background */
+            position: relative; /* For minimap */
+            overflow: hidden; /* Content should not spill */
+        }
+
+        .editor-content {
+            flex-grow: 1;
+            display: flex; /* To manage multiple editor instances if needed */
+            position: relative;
+        }
+
+        .monaco-editor-placeholder {
+            flex-grow: 1;
+            background-color: #1E1E1E;
+            color: #D4D4D4;
+            font-family: 'Consolas', 'Courier New', monospace; /* Typical editor font */
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 15px;
+            overflow-y: auto; /* For scrollable content */
+            white-space: pre; /* To respect line breaks and spaces */
+            display: none; /* Hidden by default, shown by JS */
+        }
+        .monaco-editor-placeholder.active {
+            display: block;
+        }
+        /* This is where Monaco Editor would be initialized */
+        /* Example: <div id="monaco-editor-instance-1" class="monaco-editor-placeholder active"></div> */
+
+
+        .minimap-placeholder {
+            width: 100px; /* Approximate width */
+            background-color: #252526; /* Slightly different from editor for visibility */
+            border-left: 1px solid #1A1A1A;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+            overflow: hidden;
+            position: relative;
+        }
+        .minimap-content-mock {
+            width: 80%;
+            height: 95%;
+            background-color: rgba(120, 120, 120, 0.1); /* Mock content lines */
+            overflow: hidden;
+            position: relative;
+        }
+        .minimap-slider-mock {
+            width: 100%;
+            height: 20%; /* Represents the visible area */
+            background-color: rgba(100, 100, 100, 0.3);
+            position: absolute;
+            top: 10%;
+            left: 0;
+            border: 1px solid rgba(150,150,150,0.3);
+            cursor: ns-resize;
+        }
+
+
+        /* Bottom Bar */
+        .bottom-bar {
+            background-color: #2D2D2D;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: flex-start; /* Align buttons to the left */
+            align-items: center;
+            border-top: 1px solid #1A1A1A;
+            flex-shrink: 0;
+        }
+
+        .action-button {
+            background-color: #4A4A4A;
+            color: #D4D4D4;
+            border: 1px solid #333333;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        .action-button:hover {
+            background-color: #5A5A5A;
+            border-color: #444444;
+        }
+        .action-button:active {
+            background-color: #3A3A3A;
+        }
+        .action-button .btn-icon {
+            margin-right: 8px;
+            font-size: 16px; /* Placeholder for actual icons */
+        }
+        .action-button.attach-btn .btn-icon {
+            transform: rotate(45deg); /* Simple plug-like icon */
+        }
+
+    </style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <a href="#home" class="logo">CANDA</a>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation" aria-expanded="false">
-                <i data-feather="menu"></i>
-            </button>
-        </nav>
-    </header>
+    <div class="app-window">
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <span class="hamburger-menu" title="Menu">&#9776;</span>
+                <span class="app-title">Phrogsploit</span>
+            </div>
+            <div class="title-bar-right">
+                <span class="port-indicator">Port: 7777</span>
+                <div class="window-controls">
+                    <button class="minimize-btn" title="Minimize">&mdash;</button>
+                    <button class="close-btn" title="Close">&times;</button>
+                </div>
+            </div>
+        </div>
 
-    <div class="mobile-menu" id="mobile-menu">
-        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation">
-            <i data-feather="x"></i>
-        </button>
-        <ul>
-            <li><a href="#home" class="mobile-nav-link">Home</a></li>
-            <li><a href="#about" class="mobile-nav-link">About</a></li>
-            <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
-            <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
-            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
-        </ul>
+        <div class="tab-bar" id="tabBar">
+            </div>
+
+        <div class="editor-area-container">
+            <div class="editor-content" id="editorContent">
+                </div>
+            <div class="minimap-placeholder">
+                <div class="minimap-content-mock">
+                    <div class="minimap-slider-mock"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bottom-bar">
+            <button class="action-button" id="executeBtn"><span class="btn-icon">&#9654;</span>Execute</button>
+            <button class="action-button" id="openFileBtn"><span class="btn-icon">&#128194;</span>Open File</button>
+            <button class="action-button" id="saveFileBtn"><span class="btn-icon">&#128190;</span>Save File</button>
+            <button class="action-button attach-btn" id="attachBtn"><span class="btn-icon">&#128279;</span>Attach</button>
+        </div>
     </div>
 
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1>CANDA</h1>
-                <p class="subtitle">Full-Stack Web Developer</p>
-                <div class="social-links">
-                    <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub"><i data-feather="github"></i></a>
-                    <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
-                    <a href="mailto:your.email@example.com" aria-label="Email"><i data-feather="mail"></i></a>
-                </div>
-                <a href="assets/canda-cv.pdf" download class="btn btn-primary btn-hero">
-                    <i data-feather="download"></i> Download CV
-                </a>
-            </div>
-        </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabBar = document.getElementById('tabBar');
+            const editorContent = document.getElementById('editorContent');
+            const addTabButton = createAddTabButton();
+            tabBar.appendChild(addTabButton);
 
-        <section id="about">
-            <h2><span class="accent">About</span> Me</h2>
-            <div class="about-content">
-                <div class="about-image">
-                    <img src="images/profile.jpg" alt="Canda - Profile Picture">
-                </div>
-                <div class="about-text">
-                    <p>Hi, I'm Canda, a passionate Full-Stack Web Developer based in [Your Location - e.g., Fort Worth, Texas]. I specialize in building modern, responsive, and user-friendly web applications from front to back.</p>
-                    <p>With experience in various technologies across the stack, I enjoy tackling challenges and turning complex problems into elegant solutions. I'm constantly learning and exploring new tools to improve my craft.</p>
-                    <p>When I'm not coding, I enjoy [Your Hobby 1], [Your Hobby 2], and exploring the latest tech trends.</p>
-                </div>
-            </div>
-        </section>
+            let tabCounter = 0;
+            let activeTabId = null;
 
-        <section id="skills">
-            <h2>My <span class="accent">Skills</span></h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i data-feather="monitor"></i> Frontend</h3>
-                    <ul>
-                        <li><i data-feather="code"></i> HTML5</li>
-                        <li><i data-feather="pen-tool"></i> CSS3 / SASS</li>
-                        <li><i data-feather="bold"></i> JavaScript (ES6+)</li>
-                        <li><i data-feather="figma"></i> React / Vue.js / Angular</li>
-                        <li><i data-feather="layout"></i> Responsive Design</li>
-                        <li><i data-feather="fast-forward"></i> Performance Optimization</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i data-feather="server"></i> Backend</h3>
-                    <ul>
-                        <li><i data-feather="box"></i> Node.js</li>
-                        <li><i data-feather="compass"></i> Express.js</li>
-                        <li><i data-feather="database"></i> MongoDB / PostgreSQL / MySQL</li>
-                        <li><i data-feather="terminal"></i> RESTful APIs / GraphQL</li>
-                        <li><i data-feather="key"></i> Authentication / Authorization</li>
-                        <li><i data-feather="shield"></i> Security Best Practices</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i data-feather="tool"></i> Others</h3>
-                    <ul>
-                        <li><i data-feather="git-merge"></i> Git & GitHub / GitLab</li>
-                        <li><i data-feather="package"></i> Docker</li>
-                        <li><i data-feather="cloud"></i> Cloud Platforms (AWS/GCP/Azure - Basic)</li>
-                        <li><i data-feather="check-circle"></i> Testing (Jest, Cypress)</li>
-                        <li><i data-feather="command"></i> Command Line Interface (CLI)</li>
-                        <li><i data-feather="refresh-cw"></i> Agile Methodologies</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+            function createEditorInstance(tabId) {
+                const editorInstance = document.createElement('div');
+                editorInstance.id = `editor-${tabId}`;
+                editorInstance.classList.add('monaco-editor-placeholder');
+                // In a real scenario, you would initialize Monaco Editor here:
+                // monaco.editor.create(editorInstance, {
+                //     value: `// Script for ${tabId}\nconsole.log("Hello from ${tabId}");`,
+                //     language: 'javascript', // or lua, etc.
+                //     theme: 'vs-dark', // Monaco has its own themes
+                //     minimap: { enabled: true }
+                // });
+                editorInstance.textContent = `// Content for ${tabId}\n// Theme concept by 7sleeps (as per your image)\n\nfunction example() {\n    print("This is a placeholder for the Monaco Editor content for ${tabId}.");\n}\n\nexample();`;
+                return editorInstance;
+            }
 
-        <section id="projects">
-            <h2>My <span class="accent">Projects</span></h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/project1-placeholder.jpg" alt="Project 1 Title">
-                    </div>
-                    <div class="project-content">
-                         <h3>Project Title 1</h3>
-                        <p>Brief description of the project highlighting key features, purpose, and challenges overcome.</p>
-                        <div class="tech-stack">
-                            <span>React</span><span>Node.js</span><span>MongoDB</span><span>CSS</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" target="_blank" class="btn btn-secondary">
-                                <i data-feather="external-link"></i> View Live
-                            </a>
-                            <a href="#" target="_blank" class="btn btn-outline">
-                                <i data-feather="github"></i> View Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            function createTabElement(tabId, name) {
+                const tab = document.createElement('div');
+                tab.classList.add('tab');
+                tab.dataset.tabId = tabId;
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/project2-placeholder.jpg" alt="Project 2 Title">
-                    </div>
-                    <div class="project-content">
-                        <h3>Project Title 2</h3>
-                        <p>Another description for a different project. Focus on what makes this one unique.</p>
-                        <div class="tech-stack">
-                            <span>Vue.js</span><span>Express</span><span>PostgreSQL</span><span>Sass</span>
-                        </div>
-                        <div class="project-links">
-                             <a href="#" target="_blank" class="btn btn-secondary">
-                                <i data-feather="external-link"></i> View Live
-                            </a>
-                            <a href="#" target="_blank" class="btn btn-outline">
-                                <i data-feather="github"></i> View Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                const icon = document.createElement('span');
+                icon.classList.add('tab-icon');
+                icon.innerHTML = '&#128196;'; // Document with lines icon
 
-                </div>
-        </section>
+                const tabNameSpan = document.createElement('span');
+                tabNameSpan.classList.add('tab-name');
+                tabNameSpan.textContent = name;
+                tabNameSpan.title = "Double-click to rename (mock)";
+                tabNameSpan.addEventListener('dblclick', () => renameTab(tab, tabNameSpan));
 
-        <section id="contact">
-            <h2>Get In <span class="accent">Touch</span></h2>
-            <form action="https://example.com/your-form-handler" method="POST" class="contact-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Your Name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Your Email Address">
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="6" required placeholder="Your message..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i data-feather="send"></i> Send Message
-                </button>
-            </form>
-        </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2025 CANDA. All rights reserved.</p>
-        </footer>
+                const closeButton = document.createElement('span');
+                closeButton.classList.add('tab-close');
+                closeButton.innerHTML = '&times;';
+                closeButton.title = "Close Tab";
+                closeButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent tab activation when closing
+                    closeTab(tabId);
+                });
 
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="script.js"></script>
+                tab.appendChild(icon);
+                tab.appendChild(tabNameSpan);
+                tab.appendChild(closeButton);
+
+                tab.addEventListener('click', () => {
+                    activateTab(tabId);
+                });
+
+                return tab;
+            }
+
+            function createAddTabButton() {
+                const button = document.createElement('button');
+                button.classList.add('add-tab-button');
+                button.innerHTML = '+';
+                button.title = "New Tab";
+                button.addEventListener('click', () => {
+                    addNewTab(`Script Tab - ${tabCounter + 1}`);
+                });
+                return button;
+            }
+
+            function addNewTab(name = `Script Tab - ${tabCounter + 1}`) {
+                tabCounter++;
+                const newTabId = `tab${tabCounter}`;
+
+                const newTabElement = createTabElement(newTabId, name);
+                tabBar.insertBefore(newTabElement, addTabButton); // Insert before the '+' button
+
+                const newEditorInstance = createEditorInstance(newTabId);
+                editorContent.appendChild(newEditorInstance);
+
+                activateTab(newTabId);
+            }
+
+            function activateTab(tabId) {
+                if (activeTabId === tabId) return;
+
+                // Deactivate previous tab and editor
+                if (activeTabId) {
+                    const previousActiveTab = tabBar.querySelector(`.tab[data-tab-id="${activeTabId}"]`);
+                    const previousActiveEditor = editorContent.querySelector(`#editor-${activeTabId}`);
+                    if (previousActiveTab) previousActiveTab.classList.remove('active');
+                    if (previousActiveEditor) previousActiveEditor.classList.remove('active');
+                }
+
+                // Activate new tab and editor
+                const currentTab = tabBar.querySelector(`.tab[data-tab-id="${tabId}"]`);
+                const currentEditor = editorContent.querySelector(`#editor-${tabId}`);
+
+                if (currentTab) currentTab.classList.add('active');
+                if (currentEditor) currentEditor.classList.add('active');
+
+                activeTabId = tabId;
+            }
+
+            function closeTab(tabId) {
+                const tabToRemove = tabBar.querySelector(`.tab[data-tab-id="${tabId}"]`);
+                const editorToRemove = editorContent.querySelector(`#editor-${tabId}`);
+
+                if (tabToRemove) tabToRemove.remove();
+                if (editorToRemove) editorToRemove.remove();
+
+                // If the closed tab was active, activate another tab (e.g., the last one or the first one)
+                if (activeTabId === tabId) {
+                    activeTabId = null; // Reset active tab
+                    const remainingTabs = tabBar.querySelectorAll('.tab');
+                    if (remainingTabs.length > 0) {
+                        // Activate the last tab in the list (or first, depending on preference)
+                        const nextActiveTabId = remainingTabs[remainingTabs.length - 1].dataset.tabId;
+                        activateTab(nextActiveTabId);
+                    } else {
+                        // No tabs left, could show a default state or message
+                        tabCounter = 0; // Reset counter if all tabs are closed
+                    }
+                }
+                 // If no tabs are left and we want to auto-add one
+                if (tabBar.querySelectorAll('.tab').length === 0) {
+                    addNewTab("Script Tab - 1"); // Optionally, add a default tab if all are closed
+                }
+            }
+
+            function renameTab(tabElement, tabNameSpan) {
+                const currentName = tabNameSpan.textContent;
+                const newName = prompt("Enter new tab name:", currentName);
+                if (newName && newName.trim() !== "" && newName !== currentName) {
+                    tabNameSpan.textContent = newName.trim();
+                }
+            }
+            
+            // Initialize with a few tabs like the screenshot
+            addNewTab("Script Tab - 1");
+            addNewTab("Script Tab - 1"); // Screenshot shows duplicate names initially
+            addNewTab("Script Tab - 1");
+            // Activate the first tab by default if multiple are added
+            if(tabCounter > 0) activateTab("tab1");
+
+
+            // Mock button functionality
+            document.getElementById('executeBtn').addEventListener('click', () => alert('Execute clicked (mock)'));
+            document.getElementById('openFileBtn').addEventListener('click', () => alert('Open File clicked (mock)'));
+            document.getElementById('saveFileBtn').addEventListener('click', () => alert('Save File clicked (mock)'));
+            document.getElementById('attachBtn').addEventListener('click', () => alert('Attach clicked (mock)'));
+
+            document.querySelector('.hamburger-menu').addEventListener('click', () => alert('Hamburger menu clicked (mock)'));
+            document.querySelector('.minimize-btn').addEventListener('click', () => alert('Minimize clicked (mock - browser cannot control OS windows)'));
+            document.querySelector('.close-btn').addEventListener('click', () => {
+                if (confirm('Close Phrogsploit UI Mockup? (This will just simulate a close)')) {
+                     // In a real app, this would close the window. Here, we can hide it or show a message.
+                    document.querySelector('.app-window').style.display = 'none';
+                    alert('App window hidden. Refresh page to see it again.');
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
